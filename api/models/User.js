@@ -7,6 +7,7 @@
  */
 var bcrypt = require('bcrypt-nodejs');
 module.exports = {
+    adapter: 'myLocalMySQLDatabase',
     attributes: {
         email: {
             type: 'string',
@@ -28,7 +29,8 @@ module.exports = {
     },
     beforeCreate: function (user, cb) {
         bcrypt.genSalt(10, function (err, salt) {
-            bcrypt.hash(user.password, salt, function (err, hash) {
+            bcrypt.hash(user.password, salt, function () {
+            }, function (err, hash) {
                 if (err) {
                     console.log(err);
                     cb(err);

@@ -20,7 +20,6 @@ module.exports = {
     login: function (req, res) {
         res.view("auth/login");
     },
-
     process: function (req, res) {
         passport.authenticate('local', function (err, user, info) {
             if ((err) || (!user)) {
@@ -37,6 +36,32 @@ module.exports = {
     logout: function (req, res) {
         req.logout();
         res.send('logout successful');
+    },
+    account: function (req, res) {
+        res.view("auth/account");
+    },
+    processAccount: function (req, res) {
+        //email exists?
+
+        User.findOne({ email: req.body.email }).done(function (err, user) {
+
+            if (!user || user.length < 1) {
+                //create new user
+                if (req.body.password1 == req.body.password2) {
+                    User.create({email: req.body.email, password: req.body.password1}).done(function (err, user) {
+                        if (err) {
+                            res.render('500', { status: 500, url: req.url, message: 'An error occurred while creating the account. Please try later.' });
+                        }
+                        res.view("auth/verify", {user: user});
+                    });
+                } else {
+                    res.view("auth/account", { message: 'The passwords must be identical.'});
+                }
+            } else {
+
+                res.view('auth/account_existing');
+            }
+        });
     },
     _config: {}
 };
