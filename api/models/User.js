@@ -7,8 +7,6 @@
  */
 var bcrypt = require('bcrypt-nodejs');
 module.exports = {
-    //migrate: 'safe', (default migrate:alter, create table on start server)
-    adapter: 'myLocalMySQLDatabase',
     attributes: {
         email: {
             type: 'string',
