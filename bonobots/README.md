@@ -1,2 +1,0 @@
-# bonobots
-### a Sails application
