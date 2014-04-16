@@ -29,11 +29,12 @@ module.exports.adapters = {
     myLocalMySQLDatabase: {
 
         module: 'sails-mysql',
-        host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-        user: 'YOUR_MYSQL_USER',
+        host: '127.0.0.1',
+        user: 'ecg_db',
+        port: 3306,
         // Psst.. You can put your password in config/local.js instead
         // so you don't inadvertently push it up if you're using version control
-        password: 'YOUR_MYSQL_PASSWORD',
-        database: 'YOUR_MYSQL_DB'
+        password: 'Test2@',
+        database: 'node_js'
     }
 };
