@@ -21,10 +21,17 @@ module.exports = {
         res.view("auth/login");
     },
     process: function (req, res) {
+        //console.log(passport.authenticate.toString());
         passport.authenticate('local', function (err, user, info) {
+            if (err) {
+                return res.send({ message: 'An error occurred while logging in.' });
+            }
+            //if (!user) { return res.redirect('/signin') }
             if ((err) || (!user)) {
-                res.redirect('/login');
-                return;
+                return res.send({
+                    message: 'login failed'
+                });
+                res.send(err);
             }
             req.logIn(user, function (err) {
                 if (err) res.redirect('/login');
